@@ -1,5 +1,6 @@
 package org.example.proccessworkload_microservice.service.impl;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.example.proccessworkload_microservice.dto.GetWorkload;
 import org.example.proccessworkload_microservice.dto.WorkloadResponse;
@@ -11,6 +12,7 @@ import org.example.proccessworkload_microservice.service.WorkloadService;
 import org.springframework.stereotype.Service;
 
 import java.time.YearMonth;
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -19,6 +21,7 @@ public class WorkloadServiceImpl implements WorkloadService {
     private final TrainerRepository trainerRepository;
 
     @Override
+    @CircuitBreaker(name = "workloadService", fallbackMethod = "processWorkLoadFallback")
     public WorkloadResponse processWorkLoad(GetWorkload getWorkload) throws NoSuchTrainerException {
         Trainer trainer = getTrainerByUsername(getWorkload.getUsername());
         YearMonth yearMonth = YearMonth.from(getWorkload.getTrainingDate());
@@ -65,5 +68,15 @@ public class WorkloadServiceImpl implements WorkloadService {
         return trainer.getTrainingHours()
                 .getOrDefault(yearMonthKey, new MonthlyTraining())
                 .getHours();
+    }
+
+    private WorkloadResponse processWorkLoadFallback(GetWorkload getWorkload, Throwable throwable) {
+        WorkloadResponse response = new WorkloadResponse();
+        response.setUsername(getWorkload.getUsername());
+        response.setFirstName("N/A");
+        response.setLastName("N/A");
+        response.setActive(false);
+        response.setTrainingSummary(Collections.emptyMap());
+        return response;
     }
 }
