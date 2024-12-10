@@ -1,6 +1,6 @@
 package org.example.proccessworkload_microservice.controller;
 
-import org.example.proccessworkload_microservice.dto.GetWorkload;
+import org.example.proccessworkload_microservice.dto.GetWorkloadRequest;
 import org.example.proccessworkload_microservice.dto.WorkloadResponse;
 import org.example.proccessworkload_microservice.exception.NoSuchTrainerException;
 import org.example.proccessworkload_microservice.service.WorkloadService;
@@ -31,36 +31,36 @@ class WorkloadControllerTest {
 
     @Test
     void getWorkload_ShouldReturnWorkloadResponse_WhenServiceReturnsResponse() throws NoSuchTrainerException {
-        GetWorkload getWorkload = new GetWorkload();
-        getWorkload.setUsername("john.doe");
-        getWorkload.setAction("ADD");
-        getWorkload.setDuration(1.5);
-        getWorkload.setTrainingDate(LocalDateTime.now());
+        GetWorkloadRequest getWorkloadRequest = new GetWorkloadRequest();
+        getWorkloadRequest.setUsername("john.doe");
+        getWorkloadRequest.setAction("ADD");
+        getWorkloadRequest.setDuration(1.5);
+        getWorkloadRequest.setTrainingDate(LocalDateTime.now());
 
         WorkloadResponse mockResponse = new WorkloadResponse();
 
-        when(workloadService.processWorkLoad(getWorkload)).thenReturn(mockResponse);
+        when(workloadService.processWorkLoad(getWorkloadRequest)).thenReturn(mockResponse);
 
-        ResponseEntity<?> response = workloadController.getWorkload(getWorkload);
+        ResponseEntity<?> response = workloadController.getWorkload(getWorkloadRequest);
 
         assertEquals(ResponseEntity.ok(mockResponse), response);
-        verify(workloadService, times(1)).processWorkLoad(getWorkload);
+        verify(workloadService, times(1)).processWorkLoad(getWorkloadRequest);
     }
 
     @Test
     void getWorkload_ShouldThrowException_WhenServiceThrowsNoSuchTrainerException() throws NoSuchTrainerException {
-        GetWorkload getWorkload = new GetWorkload();
-        getWorkload.setUsername("invalid.user");
+        GetWorkloadRequest getWorkloadRequest = new GetWorkloadRequest();
+        getWorkloadRequest.setUsername("invalid.user");
 
-        when(workloadService.processWorkLoad(getWorkload)).thenThrow(new NoSuchTrainerException("Trainer not found"));
+        when(workloadService.processWorkLoad(getWorkloadRequest)).thenThrow(new NoSuchTrainerException("Trainer not found"));
 
         NoSuchTrainerException exception =
                 org.junit.jupiter.api.Assertions.assertThrows(
                         NoSuchTrainerException.class,
-                        () -> workloadController.getWorkload(getWorkload)
+                        () -> workloadController.getWorkload(getWorkloadRequest)
                 );
 
         assertEquals("Trainer not found", exception.getMessage());
-        verify(workloadService, times(1)).processWorkLoad(getWorkload);
+        verify(workloadService, times(1)).processWorkLoad(getWorkloadRequest);
     }
 }

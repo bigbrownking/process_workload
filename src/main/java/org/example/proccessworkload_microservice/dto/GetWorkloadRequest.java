@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class GetWorkload {
+public class GetWorkloadRequest {
     private String username;
     private String firstName;
     private String lastName;

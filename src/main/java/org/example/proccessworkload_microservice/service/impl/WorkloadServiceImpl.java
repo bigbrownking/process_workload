@@ -2,7 +2,7 @@ package org.example.proccessworkload_microservice.service.impl;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
-import org.example.proccessworkload_microservice.dto.GetWorkload;
+import org.example.proccessworkload_microservice.dto.GetWorkloadRequest;
 import org.example.proccessworkload_microservice.dto.WorkloadResponse;
 import org.example.proccessworkload_microservice.exception.NoSuchTrainerException;
 import org.example.proccessworkload_microservice.model.MonthlyTraining;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.YearMonth;
 import java.util.Collections;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,16 +21,16 @@ public class WorkloadServiceImpl implements WorkloadService {
 
     @Override
     @CircuitBreaker(name = "workloadService", fallbackMethod = "processWorkLoadFallback")
-    public WorkloadResponse processWorkLoad(GetWorkload getWorkload) throws NoSuchTrainerException {
-        Trainer trainer = getTrainerByUsername(getWorkload.getUsername());
-        YearMonth yearMonth = YearMonth.from(getWorkload.getTrainingDate());
+    public WorkloadResponse processWorkLoad(GetWorkloadRequest getWorkloadRequest) throws NoSuchTrainerException {
+        Trainer trainer = getTrainerByUsername(getWorkloadRequest.getUsername());
+        YearMonth yearMonth = YearMonth.from(getWorkloadRequest.getTrainingDate());
         String yearMonthKey = yearMonth.toString();
 
         MonthlyTraining monthlyTraining = trainer.getTrainingHours()
                 .computeIfAbsent(yearMonthKey, k -> new MonthlyTraining());
 
-        double durationInHours = Math.round((getWorkload.getDuration() / 60.0) * 100.0) / 100.0;
-        updateMonthlyHours(monthlyTraining, getWorkload.getAction(), durationInHours);
+        double durationInHours = Math.round((getWorkloadRequest.getDuration() / 60.0) * 100.0) / 100.0;
+        updateMonthlyHours(monthlyTraining, getWorkloadRequest.getAction(), durationInHours);
         trainer.getTrainingHours().put(yearMonthKey, monthlyTraining);
         trainerRepository.save(trainer);
 
@@ -70,9 +69,9 @@ public class WorkloadServiceImpl implements WorkloadService {
                 .getHours();
     }
 
-    private WorkloadResponse processWorkLoadFallback(GetWorkload getWorkload, Throwable throwable) {
+    private WorkloadResponse processWorkLoadFallback(GetWorkloadRequest getWorkloadRequest, Throwable throwable) {
         WorkloadResponse response = new WorkloadResponse();
-        response.setUsername(getWorkload.getUsername());
+        response.setUsername(getWorkloadRequest.getUsername());
         response.setFirstName("N/A");
         response.setLastName("N/A");
         response.setActive(false);

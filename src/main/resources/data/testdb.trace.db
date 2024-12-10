@@ -307,7 +307,7 @@ select th1_0.trainer_username,th1_0.training_year,th1_0.hours from trainer_train
 	at org.hibernate.collection.spi.PersistentMap.get(PersistentMap.java:154)
 	at java.base/java.util.Map.computeIfAbsent(Map.java:1050)
 	at org.example.proccessworkload_microservice.service.impl.WorkloadServiceImpl.processWorkLoad(WorkloadServiceImpl.java:28)
-	at org.example.proccessworkload_microservice.controller.WorkloadController.getWorkload(WorkloadController.java:28)
+	at org.example.proccessworkload_microservice.controller.WorkloadController.getWorkloadRequest(WorkloadController.java:28)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578)
 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254)
