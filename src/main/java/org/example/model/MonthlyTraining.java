@@ -1,4 +1,4 @@
-package org.example.proccessworkload_microservice.model;
+package org.example.model;
 
 import jakarta.persistence.Embeddable;
 

@@ -114,7 +114,7 @@ Wrong user name or password [28000-232]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
-	at org.example.proccessworkload_microservice.ProccessWorkloadMicroserviceApplication.main(ProccessWorkloadMicroserviceApplication.java:11)
+	at org.example.ProccessWorkloadMicroserviceApplication.main(ProccessWorkloadMicroserviceApplication.java:11)
 Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Неверное имя пользователя или пароль
 Wrong user name or password [28000-232]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
@@ -177,7 +177,7 @@ Wrong user name or password [28000-232]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
-	at org.example.proccessworkload_microservice.ProccessWorkloadMicroserviceApplication.main(ProccessWorkloadMicroserviceApplication.java:11)
+	at org.example.ProccessWorkloadMicroserviceApplication.main(ProccessWorkloadMicroserviceApplication.java:11)
 Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Неверное имя пользователя или пароль
 Wrong user name or password [28000-232]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
@@ -244,7 +244,7 @@ Wrong user name or password [28000-232]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:323)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1342)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1331)
-	at org.example.proccessworkload_microservice.ProccessWorkloadMicroserviceApplication.main(ProccessWorkloadMicroserviceApplication.java:11)
+	at org.example.ProccessWorkloadMicroserviceApplication.main(ProccessWorkloadMicroserviceApplication.java:11)
 Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Неверное имя пользователя или пароль
 Wrong user name or password [28000-232]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)

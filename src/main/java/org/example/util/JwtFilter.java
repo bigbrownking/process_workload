@@ -1,4 +1,4 @@
-package org.example.proccessworkload_microservice.util;
+package org.example.util;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

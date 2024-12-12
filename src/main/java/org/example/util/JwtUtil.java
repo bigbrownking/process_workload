@@ -1,4 +1,4 @@
-package org.example.proccessworkload_microservice.util;
+package org.example.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

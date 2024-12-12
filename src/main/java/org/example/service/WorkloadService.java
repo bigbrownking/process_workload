@@ -1,8 +1,8 @@
-package org.example.proccessworkload_microservice.service;
+package org.example.service;
 
-import org.example.proccessworkload_microservice.dto.requests.GetWorkloadRequest;
-import org.example.proccessworkload_microservice.dto.responces.WorkloadResponse;
-import org.example.proccessworkload_microservice.exception.NoSuchTrainerException;
+import org.example.dto.responces.WorkloadResponse;
+import org.example.dto.requests.GetWorkloadRequest;
+import org.example.exception.NoSuchTrainerException;
 
 public interface WorkloadService {
     WorkloadResponse processWorkLoad(GetWorkloadRequest getWorkloadRequest) throws NoSuchTrainerException;

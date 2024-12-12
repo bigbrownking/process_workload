@@ -1,9 +1,9 @@
-package org.example.proccessworkload_microservice.controller;
+package org.example.controller;
 
-import org.example.proccessworkload_microservice.dto.requests.GetWorkloadRequest;
-import org.example.proccessworkload_microservice.dto.responces.WorkloadResponse;
-import org.example.proccessworkload_microservice.exception.NoSuchTrainerException;
-import org.example.proccessworkload_microservice.service.WorkloadService;
+import org.example.dto.responces.WorkloadResponse;
+import org.example.dto.requests.GetWorkloadRequest;
+import org.example.exception.NoSuchTrainerException;
+import org.example.service.WorkloadService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

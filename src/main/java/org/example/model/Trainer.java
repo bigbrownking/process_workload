@@ -1,9 +1,6 @@
-package org.example.proccessworkload_microservice.model;
+package org.example.model;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -20,7 +17,7 @@ public class Trainer {
     private String lastName;
     private boolean isActive;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name = "training_month")
     private Map<String, MonthlyTraining> trainingHours = new HashMap<>();
 }

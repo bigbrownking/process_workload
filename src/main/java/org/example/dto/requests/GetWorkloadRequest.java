@@ -1,7 +1,9 @@
-package org.example.proccessworkload_microservice.dto.requests;
+package org.example.dto.requests;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -9,27 +11,37 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class GetWorkloadRequest implements Serializable {
-    private static final long serialVersionUID = 1L;
+@NoArgsConstructor
+public class GetWorkloadRequest {
 
-    @JsonProperty("username")
     private String username;
 
-    @JsonProperty("first_name")
     private String firstName;
 
-    @JsonProperty("last_name")
     private String lastName;
 
-    @JsonProperty("is_active")
     private boolean isActive;
 
-    @JsonProperty("training_date")
     private LocalDateTime trainingDate;
 
-    @JsonProperty("duration")
     private double duration;
 
-    @JsonProperty("action")
     private String action;
+
+    @JsonCreator
+    public GetWorkloadRequest(@JsonProperty("username") String username,
+                              @JsonProperty("first_name") String firstName,
+                              @JsonProperty("last_name") String lastName,
+                              @JsonProperty("is_active") boolean isActive,
+                              @JsonProperty("training_date") LocalDateTime trainingDate,
+                              @JsonProperty("duration") double duration,
+                              @JsonProperty("action") String action) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isActive = isActive;
+        this.trainingDate = trainingDate;
+        this.duration = duration;
+        this.action = action;
+    }
 }

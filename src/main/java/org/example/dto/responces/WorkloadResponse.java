@@ -1,8 +1,8 @@
-package org.example.proccessworkload_microservice.dto.responces;
+package org.example.dto.responces;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.proccessworkload_microservice.model.MonthlyTraining;
+import org.example.model.MonthlyTraining;
 
 import java.util.Map;
 

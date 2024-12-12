@@ -1,8 +1,7 @@
-package org.example.proccessworkload_microservice.config;
+package org.example.config;
 
 import lombok.RequiredArgsConstructor;
-import org.example.proccessworkload_microservice.util.JwtFilter;
-import org.example.proccessworkload_microservice.util.JwtUtil;
+import org.example.util.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

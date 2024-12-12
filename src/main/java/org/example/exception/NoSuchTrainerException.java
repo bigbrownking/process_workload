@@ -1,4 +1,4 @@
-package org.example.proccessworkload_microservice.exception;
+package org.example.exception;
 
 public class NoSuchTrainerException extends Exception{
     public NoSuchTrainerException() {

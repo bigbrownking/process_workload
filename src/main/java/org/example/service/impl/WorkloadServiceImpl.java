@@ -1,13 +1,13 @@
-package org.example.proccessworkload_microservice.service.impl;
+package org.example.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.proccessworkload_microservice.dto.requests.GetWorkloadRequest;
-import org.example.proccessworkload_microservice.dto.responces.WorkloadResponse;
-import org.example.proccessworkload_microservice.exception.NoSuchTrainerException;
-import org.example.proccessworkload_microservice.model.MonthlyTraining;
-import org.example.proccessworkload_microservice.model.Trainer;
-import org.example.proccessworkload_microservice.repository.TrainerRepository;
-import org.example.proccessworkload_microservice.service.WorkloadService;
+import org.example.dto.responces.WorkloadResponse;
+import org.example.model.MonthlyTraining;
+import org.example.model.Trainer;
+import org.example.dto.requests.GetWorkloadRequest;
+import org.example.exception.NoSuchTrainerException;
+import org.example.repository.TrainerRepository;
+import org.example.service.WorkloadService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jms.annotation.JmsListener;
@@ -18,9 +18,9 @@ import java.time.YearMonth;
 
 @Service
 @RequiredArgsConstructor
-
 public class WorkloadServiceImpl implements WorkloadService {
     private final TrainerRepository trainerRepository;
+    private static final String WORKLOAD_QUEUE = "workload_queue";
     private static final Logger LOGGER = LoggerFactory.getLogger(WorkloadServiceImpl.class);
 
     @Override
@@ -63,7 +63,7 @@ public class WorkloadServiceImpl implements WorkloadService {
         return workloadResponse;
     }
 
-    @JmsListener(destination = "workload_queue",containerFactory = "jmsListenerContainerFactory")
+    @JmsListener(destination = WORKLOAD_QUEUE)
     public void processWorkloadMessage(GetWorkloadRequest getWorkloadRequest,
                                        @Header(name = "actionType", defaultValue = "UNKNOWN") String actionType,
                                        @Header(name = "username", defaultValue = "N/A") String username,
@@ -74,7 +74,7 @@ public class WorkloadServiceImpl implements WorkloadService {
         LOGGER.debug("Duration:  "+ duration);
 
         try {
-            LOGGER.info("Received workload update message for trainer: {}", getWorkloadRequest.getUsername());
+            LOGGER.info("Received workload update message for trainer: {}", getWorkloadRequest);
             processWorkLoad(getWorkloadRequest);
         } catch (NoSuchTrainerException e) {
             LOGGER.error("Trainer not found for workload update: {}", getWorkloadRequest.getUsername());
