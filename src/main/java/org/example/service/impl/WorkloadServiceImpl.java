@@ -1,26 +1,29 @@
 package org.example.proccessworkload_microservice.service.impl;
 
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
-import org.example.proccessworkload_microservice.dto.GetWorkloadRequest;
-import org.example.proccessworkload_microservice.dto.WorkloadResponse;
+import org.example.proccessworkload_microservice.dto.requests.GetWorkloadRequest;
+import org.example.proccessworkload_microservice.dto.responces.WorkloadResponse;
 import org.example.proccessworkload_microservice.exception.NoSuchTrainerException;
 import org.example.proccessworkload_microservice.model.MonthlyTraining;
 import org.example.proccessworkload_microservice.model.Trainer;
 import org.example.proccessworkload_microservice.repository.TrainerRepository;
 import org.example.proccessworkload_microservice.service.WorkloadService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
 import java.time.YearMonth;
-import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
+
 public class WorkloadServiceImpl implements WorkloadService {
     private final TrainerRepository trainerRepository;
+    private static final Logger LOGGER = LoggerFactory.getLogger(WorkloadServiceImpl.class);
 
     @Override
-    @CircuitBreaker(name = "workloadService", fallbackMethod = "processWorkLoadFallback")
     public WorkloadResponse processWorkLoad(GetWorkloadRequest getWorkloadRequest) throws NoSuchTrainerException {
         Trainer trainer = getTrainerByUsername(getWorkloadRequest.getUsername());
         YearMonth yearMonth = YearMonth.from(getWorkloadRequest.getTrainingDate());
@@ -60,6 +63,25 @@ public class WorkloadServiceImpl implements WorkloadService {
         return workloadResponse;
     }
 
+    @JmsListener(destination = "workload_queue",containerFactory = "jmsListenerContainerFactory")
+    public void processWorkloadMessage(GetWorkloadRequest getWorkloadRequest,
+                                       @Header(name = "actionType", defaultValue = "UNKNOWN") String actionType,
+                                       @Header(name = "username", defaultValue = "N/A") String username,
+                                       @Header(name = "duration", defaultValue = "0") double duration) {
+        LOGGER.debug("Received message: " + getWorkloadRequest);
+        LOGGER.debug("Action Type: " + actionType);
+        LOGGER.debug("Username: " + username);
+        LOGGER.debug("Duration:  "+ duration);
+
+        try {
+            LOGGER.info("Received workload update message for trainer: {}", getWorkloadRequest.getUsername());
+            processWorkLoad(getWorkloadRequest);
+        } catch (NoSuchTrainerException e) {
+            LOGGER.error("Trainer not found for workload update: {}", getWorkloadRequest.getUsername());
+        } catch (Exception e) {
+            LOGGER.error("Failed to process workload message: {}", e.getMessage());
+        }
+    }
     @Override
     public double getMonthlyTrainingHours(String username, int year, int month) throws NoSuchTrainerException {
         Trainer trainer = getTrainerByUsername(username);
@@ -67,15 +89,5 @@ public class WorkloadServiceImpl implements WorkloadService {
         return trainer.getTrainingHours()
                 .getOrDefault(yearMonthKey, new MonthlyTraining())
                 .getHours();
-    }
-
-    private WorkloadResponse processWorkLoadFallback(GetWorkloadRequest getWorkloadRequest, Throwable throwable) {
-        WorkloadResponse response = new WorkloadResponse();
-        response.setUsername(getWorkloadRequest.getUsername());
-        response.setFirstName("N/A");
-        response.setLastName("N/A");
-        response.setActive(false);
-        response.setTrainingSummary(Collections.emptyMap());
-        return response;
     }
 }

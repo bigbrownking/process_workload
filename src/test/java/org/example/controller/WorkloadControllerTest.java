@@ -1,7 +1,7 @@
 package org.example.proccessworkload_microservice.controller;
 
-import org.example.proccessworkload_microservice.dto.GetWorkloadRequest;
-import org.example.proccessworkload_microservice.dto.WorkloadResponse;
+import org.example.proccessworkload_microservice.dto.requests.GetWorkloadRequest;
+import org.example.proccessworkload_microservice.dto.responces.WorkloadResponse;
 import org.example.proccessworkload_microservice.exception.NoSuchTrainerException;
 import org.example.proccessworkload_microservice.service.WorkloadService;
 import org.junit.jupiter.api.BeforeEach;

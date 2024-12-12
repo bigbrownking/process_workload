@@ -1,4 +1,4 @@
-package org.example.proccessworkload_microservice.dto;
+package org.example.proccessworkload_microservice.dto.responces;
 
 import lombok.Getter;
 import lombok.Setter;

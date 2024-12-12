@@ -2,8 +2,8 @@ package org.example.proccessworkload_microservice.controller;
 
 import com.netflix.discovery.EurekaClient;
 import lombok.RequiredArgsConstructor;
-import org.example.proccessworkload_microservice.dto.GetWorkloadRequest;
-import org.example.proccessworkload_microservice.dto.WorkloadResponse;
+import org.example.proccessworkload_microservice.dto.requests.GetWorkloadRequest;
+import org.example.proccessworkload_microservice.dto.responces.WorkloadResponse;
 import org.example.proccessworkload_microservice.exception.NoSuchTrainerException;
 import org.example.proccessworkload_microservice.service.WorkloadService;
 import org.springframework.context.annotation.Lazy;
