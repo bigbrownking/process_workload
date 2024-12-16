@@ -1,23 +1,31 @@
 package org.example.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.HashMap;
-import java.util.Map;
-
-@Entity
+import java.util.List;
 @Data
+@Document(collection = "trainer_workload")
+@CompoundIndex(name = "first_last_name_idx", def = "{'trainerFirstName': 1, 'trainerLastName': 1}")
 public class Trainer {
-
     @Id
+    private String id;
+
+    @Field("username")
     private String username;
 
-    private String firstName;
-    private String lastName;
-    private boolean isActive;
+    @Field("firstName")
+    private String firstname;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @MapKeyColumn(name = "training_month")
-    private Map<String, MonthlyTraining> trainingHours = new HashMap<>();
+    @Field("lastName")
+    private String lastname;
+
+    @Field("status")
+    private boolean status;
+
+    @Field("Workload")
+    private List<YearSummary> yearsList;
 }

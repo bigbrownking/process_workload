@@ -1,0 +1,108 @@
+[
+  {
+    "username": "john.doe",
+    "firstName": "John",
+    "lastName": "Doe",
+    "status": true,
+    "Workload": [
+      {
+        "year": 2024,
+        "monthsList": [
+          {
+            "month": "JANUARY",
+            "trainingsSummaryDuration": 40.5
+          },
+          {
+            "month": "FEBRUARY",
+            "trainingsSummaryDuration": 35.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username": "jane.smith",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "status": false,
+    "Workload": [
+      {
+        "year": 2023,
+        "monthsList": [
+          {
+            "month": "DECEMBER",
+            "trainingsSummaryDuration": 50.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username": "mike.jones",
+    "firstName": "Mike",
+    "lastName": "Jones",
+    "status": true,
+    "Workload": [
+      {
+        "year": 2024,
+        "monthsList": [
+          {
+            "month": "MARCH",
+            "trainingsSummaryDuration": 42.0
+          },
+          {
+            "month": "APRIL",
+            "trainingsSummaryDuration": 39.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username": "emily.clark",
+    "firstName": "Emily",
+    "lastName": "Clark",
+    "status": true,
+    "Workload": [
+      {
+        "year": 2022,
+        "monthsList": [
+          {
+            "month": "NOVEMBER",
+            "trainingsSummaryDuration": 48.0
+          }
+        ]
+      },
+      {
+        "year": 2023,
+        "monthsList": [
+          {
+            "month": "JANUARY",
+            "trainingsSummaryDuration": 60.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "username": "david.white",
+    "firstName": "David",
+    "lastName": "White",
+    "status": false,
+    "Workload": [
+      {
+        "year": 2024,
+        "monthsList": [
+          {
+            "month": "FEBRUARY",
+            "trainingsSummaryDuration": 30.0
+          },
+          {
+            "month": "MARCH",
+            "trainingsSummaryDuration": 25.0
+          }
+        ]
+      }
+    ]
+  }
+]

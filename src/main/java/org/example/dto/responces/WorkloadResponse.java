@@ -1,17 +1,15 @@
 package org.example.dto.responces;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.example.model.MonthlyTraining;
+import lombok.Data;
+import org.example.model.YearSummary;
 
-import java.util.Map;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 public class WorkloadResponse {
     private String username;
     private String firstName;
     private String lastName;
-    private boolean isActive;
-    private Map<String, MonthlyTraining> trainingSummary;
+    private boolean status;
+    private List<YearSummary> yearsList;
 }
