@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.List;
 @Data
 @Document(collection = "trainer_workload")
-@CompoundIndex(name = "first_last_name_idx", def = "{'trainerFirstName': 1, 'trainerLastName': 1}")
+@CompoundIndex(name = "first_last_name_idx", def = "{'firstname': 1, 'lastname': 1}")
 public class Trainer {
     @Id
     private String id;
